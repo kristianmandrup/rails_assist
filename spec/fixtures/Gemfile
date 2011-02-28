@@ -1,0 +1,9 @@
+source 'http://rubygems.org'
+gem 'rails', '3.0.3'
+gem 'cream'
+gem 'devise'
+gem "mm-devise"
+gem "roles_mongo_mapper"
+gem 'hello'
+gem 'hi'
+gem 'blip'
