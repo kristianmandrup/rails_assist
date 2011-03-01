@@ -11,7 +11,7 @@ module RailsAssist::File
           end
 
           def #{name}_file
-            #{name}_filepath.new_file
+            #{name}_filepath.file
           end
         }
       end  

@@ -19,6 +19,16 @@ module RailsAssist::Artifact
         }
       end
 
+      [:initializer, :locale].each do |name|
+        class_eval %{
+          def #{name}_filepaths expr=nil
+            files = RailsAssist::Files.rails_app_files(:#{name.to_s.pluralize}).grep_it expr
+            yield files if block_given?
+            files
+          end          
+        }
+      end
+
       # artifact files using xxx_[artifact].rb convention, i.e postfixing with type of artifact
       [:mailer, :observer, :permit, :license, :controller, :helper, :validator].each do |name|
         class_eval %{

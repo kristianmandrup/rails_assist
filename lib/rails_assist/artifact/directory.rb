@@ -34,9 +34,17 @@ module RailsAssist::Artifact
           }
         end
       end
+
+      [:stylesheet, :javascript].each do |name|
+        class_eval %{      
+          def #{name}_dirpath options={}
+            RailsAssist::Directory.public_dir_for(:#{name.to_s.pluralize}, options).path
+          end
+        }
+      end
       
       def migration_dirpath options={}
-        [DIR.db_dir(options), 'migrations'].file_join
+        [DIR.db_dir(options), 'migrate'].file_join
       end
 
       def migration_dir options={}

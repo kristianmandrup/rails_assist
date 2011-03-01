@@ -9,8 +9,8 @@ module RailsAssist::File
     end
 
     def insert_application_init place, statement=nil, &block
-      statement = block ? yield : statement
-      environment_file.insert statement, place => /\w+::Application.initialize!/
+      statement = block ? yield : statement  
+      environment_file.insert statement, place => /\w+#{Regexp.escape('::Application.initialize!')}/
     end    
   end
 end

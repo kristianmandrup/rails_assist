@@ -9,7 +9,8 @@ end
 describe RailsAssist::Artifact::Directory do
   # use_helper :directories
 
-  before do
+  before do  
+    RailsAssist::Directory.rails_root = fixtures_dir    
     @test = ArtDir.new
   end
 
@@ -33,8 +34,8 @@ describe RailsAssist::Artifact::Directory do
   
   describe '#migration_dir' do
     it "should return migration directory name" do
-      CLASS.migration_dir.path.should match /db\/migration/
-      @test.migration_dirpath.should match /db\/migration/
+      CLASS.migration_dir.path.should match /db\/migrate/
+      @test.migration_dirpath.should match /db\/migrate/
     end
   end
   

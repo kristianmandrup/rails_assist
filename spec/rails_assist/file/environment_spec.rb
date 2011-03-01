@@ -14,12 +14,12 @@ describe RailsAssist::File::Environment do
   end
 
   before :each do
-    file_name = CLASS.environment_file
+    file_name = CLASS.environment_filepath
     FileUtils.cp file_name, file_name + '.bak'
   end
 
   after :each do
-    file_name = CLASS.environment_file
+    file_name = CLASS.environment_filepath
     FileUtils.mv file_name + '.bak', file_name
   end
 
@@ -30,7 +30,7 @@ describe RailsAssist::File::Environment do
       content.should match /config\.hello = 2\n(.*)::Application.initialize!/
     end
   end
-
+  
   describe '#insert_after_application_init' do
     it "should add code or content AFTER the application is initialized" do
       CLASS.insert_after_application_init 'config.hello = 2'
@@ -38,7 +38,7 @@ describe RailsAssist::File::Environment do
       content.should match /::Application.initialize!\n(.*)config\.hello = 2/
     end
   end
-
+  
   describe '#insert_application_init' do
     it "should add code or content AFTER the application is initialized" do
       CLASS.insert_application_init :after, 'config.hello = 2'

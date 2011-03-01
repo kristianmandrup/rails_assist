@@ -14,12 +14,12 @@ describe RailsAssist::File::Application do
   end
 
   before :each do
-    file_name = CLASS.application_file
+    file_name = CLASS.application_filepath
     FileUtils.cp file_name, file_name + '.bak'
   end
 
   after :each do
-    file_name = CLASS.application_file
+    file_name = CLASS.application_filepath
     FileUtils.mv file_name + '.bak', file_name
   end
 

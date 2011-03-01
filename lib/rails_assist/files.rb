@@ -11,7 +11,8 @@ module RailsAssist
       RYBY_FILES = '**/*.rb'
       
       def rails_app_filepaths type = :app, options = {}
-        dir = RailsAssist::Directory.send "#{type.to_s.singularize}_dir"
+        type = (type =~ /ss/) ? type : type.to_s.singularize        
+        dir = RailsAssist::Directory.send "#{type}_dirpath"
         expr = options[:expr]
         file_pattern = options[:pattern] || RYBY_FILES
         pattern = "#{dir}/#{file_pattern}"
@@ -19,11 +20,11 @@ module RailsAssist
       end
 
       def rails_app_files type = :app, options = {}
-        rails_app_filepaths(:app, options).to_files
+        rails_app_filepaths(type, options).to_files
       end
     
       def all_filepaths expr=nil
-        pattern = "#{RailsAssist::Directory::Root.root_dir}/**/*.*"
+        pattern = "#{RailsAssist::Directory::Root.root_dirpath}/**/*.*"
         FileList[pattern].to_a.grep_it expr 
       end  
 
@@ -67,17 +68,17 @@ module RailsAssist
 
       [:initializer, :db, :migration].each do |name|
         class_eval %{
-          def #{name}_files expr=nil
-            files = rails_app_files(:#{name}, :expr => expr)
-            yield files if block_given?
-            files
-          end  
-          
+          def #{name}_filepaths expr=nil
+            filepaths = rails_app_files(:#{name}, :expr => expr)
+            yield filepaths if block_given?
+            filepaths
+          end
+
           def #{name}_files expr=nil
             files = #{name}_filepaths(expr).to_files
             yield files if block_given?
             files
-          end          
+          end
         }
       end
 
@@ -97,18 +98,18 @@ module RailsAssist
         }
       end
 
-      [:css, :sass].each do |ext|
+      {:css => :css, :sass => :scss}.each_pair do |name, ext|
         class_eval %{
-          def #{ext}_files expr=nil
-            files = #{name}_filepaths(expr).to_files
-            yield files if block_given?
-            files
-          end
-
-          def #{ext}_filepaths expr=nil
+          def #{name}_filepaths expr=nil
             filepaths = rails_app_files(:stylesheets, :pattern => '**/*.#{ext}', :expr => expr)
             yield filepaths if block_given?
             filepaths
+          end
+
+          def #{name}_files expr=nil
+            files = #{name}_filepaths(expr).to_files
+            yield files if block_given?
+            files
           end
         }
       end

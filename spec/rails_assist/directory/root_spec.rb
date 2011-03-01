@@ -6,11 +6,16 @@ class RootDir
   include CLASS
 end
 
+def rails_root
+  RailsAssist::Directory.rails_root
+end
+
+
 describe RailsAssist::Directory::Root do
   # use_helper :directories
 
   before do
-    RailsAssist::Directory.rails_root = File.dirname (__FILE__)
+    RailsAssist::Directory.rails_root = fixtures_dir
   end
 
   describe '#self.root_directories' do
@@ -28,13 +33,13 @@ describe RailsAssist::Directory::Root do
 
   describe '#self.root_dir' do
     it "should the current Rails 3 ap dir when Rails root is set" do
-      CLASS.root_dir.should == File.dirname(__FILE__)
+      CLASS.root_dir.path.should == rails_root
     end
   end
 
   describe '#root_dir' do
     it "should the current Rails 3 ap dir when Rails root is set" do
-      RootDir.new.root_dir.should == File.dirname(__FILE__)
+      RootDir.new.root_dir.path.should == rails_root
     end
   end
 end

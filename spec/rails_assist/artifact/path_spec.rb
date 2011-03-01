@@ -10,7 +10,7 @@ describe RailsAssist::Artifact::Path do
   # use_helper :directories
 
   before do
-    RailsAssist::Directory.rails_root = File.dirname (__FILE__)
+    RailsAssist::Directory.rails_root = fixtures_dir
     @test = ArtDir.new
   end
 

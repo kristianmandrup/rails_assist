@@ -7,21 +7,25 @@ class RailsDir
   use_helper :directory
 end
 
+def rails_root
+  RailsAssist::Directory.rails_root
+end
+
 describe RailsAssist::Directory do
   # use_helper :directories
 
-  # before do
-  #   RailsAssist::Directory.rails_root = File.dirname (__FILE__)
-  #   @test = RailsDir.new
-  # end
+  before do
+    RailsAssist::Directory.rails_root = fixtures_dir
+    @test = RailsDir.new
+  end
 
   RailsAssist::Directory::Root.root_directories.each do |name|
     eval %{
       describe '##{name}_dir' do
         it "should return #{name} directory name" do
-          CLASS.#{name}_dir.should match /\/\#{name}/
-          CLASS.#{name}_dir.should match Regexp.escape(RailsAssist::Directory.rails_root)
-          @test.#{name}_dir.should match /\/\#{name}/
+          CLASS.#{name}_dir.path.should match /\/\#{name}/
+          CLASS.#{name}_dir.path.should match Regexp.escape(RailsAssist::Directory.rails_root)
+          @test.#{name}_dir.path.should match /\/\#{name}/
         end
       end
     } 
@@ -29,31 +33,31 @@ describe RailsAssist::Directory do
     
   describe '#rails_dir_for' do
     it "should return mailer directory name" do
-      @test.rails_dir_for(:mailer).should == File.join(File.dirname(__FILE__), 'app', 'mailers')
+      @test.rails_dir_for(:mailer).path.should == File.join(rails_root, 'app', 'mailers')
     end
   end
 
   describe '#rails_dir_for' do
     it "should return app directory name" do
-      @test.rails_dir_for(:app).should == File.join(File.dirname(__FILE__), 'app')
+      @test.rails_dir_for(:app).path.should == File.join(rails_root, 'app')
     end
   end
 
   describe '#config_dir_for' do
     it "should return initializers directory name" do
-      @test.config_dir_for(:initializer).should == File.join(File.dirname(__FILE__), 'config', 'initializers')
+      @test.config_dir_for(:initializer).path.should == File.join(rails_root, 'config', 'initializers')
     end
   end
   
   describe '#self.config_dir_for' do
     it "should return initializers directory name" do
-      CLASS.config_dir_for(:initializer).should == File.join(File.dirname(__FILE__), 'config', 'initializers')
+      CLASS.config_dir_for(:initializer).path.should == File.join(rails_root, 'config', 'initializers')
     end
   end
 
   describe '#public_dir_for' do
     it "should return javascripts directory name" do
-      @test.public_dir_for(:javascript).should == File.join(File.dirname(__FILE__), 'public', 'javascripts')
+      @test.public_dir_for(:javascript).path.should == File.join(rails_root, 'public', 'javascripts')
     end
   end
 end

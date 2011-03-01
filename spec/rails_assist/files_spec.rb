@@ -13,61 +13,61 @@ describe RailsAssist::Files do
   before do
     RailsAssist::Directory.rails_root = fixtures_dir
   end
-
-  describe '#rails_app_files' do
-    it "should return all :app files using default pattern" do
-      AppDir.new.rails_app_files(:model)
-    end
-  end
-
-  describe '#all_files' do
-    it "should return all_files in the app" do    
-      CLASS.all_files.file_names.should include('user.rb', 'users_helper.rb')
-    end
-  
-    it "should return all_files in the app matching expr" do
-      CLASS.all_files(/user/).file_names.should include('user.rb', 'users_helper.rb')
-      CLASS.all_files('user').file_names.should include('user.rb', 'users_helper.rb')
-    end
-      
-    it "should return all_files in the app matching expr, in a block" do    
-      CLASS.all_files('user') do |files|
-        files.file_names.should include('user.rb', 'users_helper.rb')
-      end
-    end
-  end
-  
-  describe '#app_files' do
-    it "should return app_files in the app" do    
-      CLASS.all_files.file_names.should include('user.rb', 'users_helper.rb')
-    end
-  
-    it "should return app_files in the app matching expr" do    
-      CLASS.all_files('user').file_names.should include('user.rb', 'users_helper.rb')
-    end
-  
-    it "should return app_files in the app matching expr, in a block" do    
-      CLASS.app_files('user') do |files|
-        files.file_names.should include('user.rb', 'users_helper.rb')
-      end
-    end
-  end
-  
-  describe '#files_from' do
-    it "should return files from model dir" do    
-      CLASS.files_from(:model).file_names.should include 'user.rb'
-    end
-  
-    it "should return files from model, mailer and controller dirs" do    
-      CLASS.files_from(:model, :mailer, :controller).file_names.should include('user.rb', 'user_mailer.rb', 'users_controller.rb')
-    end
-  
-    it "should return block with files from model, mailer and controller dirs" do    
-      CLASS.files_from(:model, :mailer, :controller) do |files|
-        files.file_names.should include('user.rb', 'user_mailer.rb', 'users_controller.rb')
-      end
-    end
-  end
+  # 
+  # describe '#rails_app_files' do
+  #   it "should return all :app files using default pattern" do
+  #     AppDir.new.rails_app_files(:model)
+  #   end
+  # end
+  # 
+  # describe '#all_files' do
+  #   it "should return all_files in the app" do    
+  #     CLASS.all_files.file_names.should include('user.rb', 'users_helper.rb')
+  #   end
+  # 
+  #   it "should return all_files in the app matching expr" do
+  #     CLASS.all_files(/user/).file_names.should include('user.rb', 'users_helper.rb')
+  #     CLASS.all_files('user').file_names.should include('user.rb', 'users_helper.rb')
+  #   end
+  #     
+  #   it "should return all_files in the app matching expr, in a block" do    
+  #     CLASS.all_files('user') do |files|
+  #       files.file_names.should include('user.rb', 'users_helper.rb')
+  #     end
+  #   end
+  # end
+  # 
+  # describe '#app_files' do
+  #   it "should return app_files in the app" do    
+  #     CLASS.all_files.file_names.should include('user.rb', 'users_helper.rb')
+  #   end
+  # 
+  #   it "should return app_files in the app matching expr" do    
+  #     CLASS.all_files('user').file_names.should include('user.rb', 'users_helper.rb')
+  #   end
+  # 
+  #   it "should return app_files in the app matching expr, in a block" do    
+  #     CLASS.app_files('user') do |files|
+  #       files.file_names.should include('user.rb', 'users_helper.rb')
+  #     end
+  #   end
+  # end
+  # 
+  # describe '#files_from' do
+  #   it "should return files from model dir" do    
+  #     CLASS.files_from(:model).file_names.should include 'user.rb'
+  #   end
+  # 
+  #   it "should return files from model, mailer and controller dirs" do    
+  #     CLASS.files_from(:model, :mailer, :controller).file_names.should include('user.rb', 'user_mailer.rb', 'users_controller.rb')
+  #   end
+  # 
+  #   it "should return block with files from model, mailer and controller dirs" do    
+  #     CLASS.files_from(:model, :mailer, :controller) do |files|
+  #       files.file_names.should include('user.rb', 'user_mailer.rb', 'users_controller.rb')
+  #     end
+  #   end
+  # end
   
   describe '#initializer_files' do
     it "should return files for initializer directory" do    
