@@ -13,11 +13,10 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "rails_assist"
-  gem.homepage = "http://github.com/kristianmandrup/rails_assist"
-  gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{File operation helpers for Rails 3 artifacts}
+  gem.description = %Q{Basic file operation helpers for working with Rails 3 artifacts}
   gem.email = "kmandrup@gmail.com"
+  gem.homepage = "http://github.com/kristianmandrup/rails3-assist"
   gem.authors = ["Kristian Mandrup"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
