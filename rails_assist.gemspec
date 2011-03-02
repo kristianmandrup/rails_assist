@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
     "lib/rails_assist/namespaces.rb",
     "lib/rails_assist/rspec.rb",
     "lib/rails_assist/rspec/configure.rb",
+    "rails_assist.gemspec",
     "sandbox/test.rb",
     "sandbox/test.txt",
     "spec/fixtures.rb",
