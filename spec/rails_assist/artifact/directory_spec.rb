@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'dir_spec_helper'
 
 CLASS = RailsAssist::Artifact::Directory
 
@@ -37,9 +37,7 @@ describe RailsAssist::Artifact::Directory do
       CLASS.migration_dir.path.should match /db\/migrate/
       @test.migration_dirpath.should match /db\/migrate/
     end
-  end
-  
-  
+  end    
     
   [:initializer, :locale].each do |name|
     eval %{

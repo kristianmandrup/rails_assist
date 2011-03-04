@@ -3,7 +3,7 @@ source "http://rubygems.org"
 # Example:
 
 gem "require_all",       "~> 1.2.0"
-gem "sugar-high",        "~> 0.3.7"
+gem "sugar-high",        ">= 0.4.0"
 gem "activesupport",     ">= 3.0.4"
 # gem "migration_assist",  "~> 0.1.7"
 

@@ -32,7 +32,9 @@ module RailsAssist
       RailsAssist::Directory::Root.root_directories.each do |name|
         class_eval %{
           def #{name}_dir options={}
-            ::File.join(RailsAssist::Directory::Root.root_dir(options), '#{name}')
+            _root_dir = RailsAssist::Directory::Root.root_dir(options)
+            raise "Rails Root dir not defined" if _root_dir.nil?
+            ::File.join(_root_dir, '#{name}')
           end        
         } 
       end      
