@@ -18,6 +18,7 @@ describe RailsAssist::Artifact::Directory do
     eval %{
       describe '##{name}_dir' do
         it "should return #{name} directory name" do
+          CLASS.#{name}_dirpath.should match /app\/\#{name}/
           CLASS.#{name}_dir.path.should match /app\/\#{name}/
           @test.#{name}_dir.path.should match /app\/\#{name}/
         end

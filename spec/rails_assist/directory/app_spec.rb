@@ -38,6 +38,7 @@ describe RailsAssist::Directory::App do
 
   describe '#app_dir' do
     it "should the current Rails 3 ap dir when Rails root is set" do
+      AppDir.new.app_dirpath.should == File.join(rails_root, 'app')
       AppDir.new.app_dir.path.should == File.join(rails_root, 'app')
     end
   end

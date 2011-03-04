@@ -16,7 +16,7 @@ Jeweler::Tasks.new do |gem|
   gem.summary = %Q{File operation helpers for Rails 3 artifacts}
   gem.description = %Q{Basic file operation helpers for working with Rails 3 artifacts}
   gem.email = "kmandrup@gmail.com"
-  gem.homepage = "http://github.com/kristianmandrup/rails3-assist"
+  gem.homepage = "http://github.com/kristianmandrup/rails-assist"
   gem.authors = ["Kristian Mandrup"]
 
   gem.add_dependency "require_all",       "~> 1.2.0"

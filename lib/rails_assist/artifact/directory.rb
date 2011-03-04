@@ -10,7 +10,8 @@ module RailsAssist::Artifact
       RailsAssist::Artifact.app_artifacts.each do |name|
         class_eval %{
           def #{name}_dirpath options={}
-            [APP_DIR.app_dirpath(options), '#{name.to_s.pluralize}'].file_join
+            _app_dirpath = APP_DIR.app_dirpath(options)
+            [_app_dirpath, '#{name.to_s.pluralize}'].file_join
           end
 
           def #{name}_dir options={}
