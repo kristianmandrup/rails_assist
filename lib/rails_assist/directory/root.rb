@@ -1,3 +1,5 @@
+#require 'sugar-high/path'
+
 module RailsAssist::Directory
   module Root
     module Methods
@@ -10,7 +12,7 @@ module RailsAssist::Directory
         dir = options[:root_path] if options 
         dir ||= RailsAssist::Directory.rails_root || Rails.root
         raise "You must set the Rails app root dir: RailsAssist::App.root_dir = '/my/root/dir'" if !dir
-        dir.path
+        dir.to_s.path
       end
       
       def root_dir options={}    

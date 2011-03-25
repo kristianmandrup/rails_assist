@@ -10,11 +10,10 @@ module RailsAssist::File
 
     def clean_gemfile
       clean_gemfile_content = read_gem_file.gsub(/('|"|end)\s*gem/m, "\\1\ngem")
-      read_gem_file.overwrite clean_gemfile_content
     end
 
     def gem_filepath
-      [RailsAssist::Directory.rails_root.path, 'Gemfile'].file_join
+      [RailsAssist::Directory::Root.root_dirpath, 'Gemfile'].file_join
     end
     
     def gem_file
