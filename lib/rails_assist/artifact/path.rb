@@ -3,7 +3,7 @@ module RailsAssist::Artifact
     include RailsAssist::Artifact::Directory    
     
     def artifact_path name, type, options={}
-      dir = send :"#{type}_dir", options
+      dir = send :"#{type}_dirpath", options
       File.join(dir, "#{name}#{type_postfix type}.rb")
     end
 
