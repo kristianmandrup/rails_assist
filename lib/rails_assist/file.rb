@@ -25,7 +25,7 @@ module RailsAssist
           def #{name}_filepath name
             name = name.as_filename
             name = (name =~ /.rb$/) ? name : "\#{name}.#{pure_ext}"
-            [RailsAssist::Artifact::Directory.#{name}_dir, name].file_join
+            [RailsAssist::Artifact::Directory.#{name}_dirpath, name].file_join
           end  
 
           def #{name}_file name
@@ -65,7 +65,7 @@ module RailsAssist
           end
 
           def remove_all_#{plural_name}
-            return if !(RailsAssist::Artifact::Directory.#{name}_dir.path.directory?)
+            return if !(RailsAssist::Artifact::Directory.#{name}_dir.path.directory?) # bug?
             #{name}_files.delete_all!
           end
 
