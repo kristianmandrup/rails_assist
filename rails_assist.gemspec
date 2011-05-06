@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails_assist}
-  s.version = "0.4.1"
+  s.version = "0.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Kristian Mandrup}]
@@ -14,16 +14,15 @@ Gem::Specification.new do |s|
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.markdown",
-    "README.rdoc"
+    "README.markdown"
   ]
   s.files = [
     ".document",
     ".rspec",
+    "Changelog.md",
     "Gemfile",
     "LICENSE.txt",
     "README.markdown",
-    "README.rdoc",
     "Rakefile",
     "VERSION",
     "lib/rails_assist.rb",
@@ -47,6 +46,7 @@ Gem::Specification.new do |s|
     "lib/rails_assist/namespaces.rb",
     "lib/rails_assist/rspec.rb",
     "lib/rails_assist/rspec/configure.rb",
+    "rails_assist.gemspec",
     "sandbox/test.rb",
     "sandbox/test.txt",
     "spec/dir_spec_helper.rb",
