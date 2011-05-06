@@ -36,6 +36,12 @@ module RailsAssist
             raise "Rails Root dir not defined" if _root_dir.nil?
             ::File.join(_root_dir, '#{name}')
           end        
+
+          def #{name}_dirpath options={}
+            _root_dir = RailsAssist::Directory::Root.root_dirpath(options)
+            raise "Rails Root dir not defined" if _root_dir.nil?
+            ::File.join(_root_dir, '#{name}')
+          end        
         } 
       end      
       
@@ -47,15 +53,15 @@ module RailsAssist
       end
 
       def app_dir_for type, options={}
-        ::File.join(app_dir(options), type.to_s.pluralize)
+        ::File.join(app_dirpath(options), type.to_s.pluralize)
       end      
 
       def config_dir_for type, options={}
-        ::File.join(config_dir(options), type.to_s.pluralize)
+        ::File.join(config_dirpath(options), type.to_s.pluralize)
       end      
 
       def public_dir_for type, options={}
-        ::File.join(public_dir(options), type.to_s.pluralize)
+        ::File.join(public_dirpath(options), type.to_s.pluralize)
       end                
     end
     
