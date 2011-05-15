@@ -45,7 +45,7 @@ module RailsAssist::Artifact
       end
       
       def migration_dirpath options={}
-        [DIR.db_dir(options), 'migrate'].file_join
+        [DIR.db_dirpath(options), 'migrate'].file_join
       end
 
       def migration_dir options={}
