@@ -20,7 +20,7 @@ Jeweler::Tasks.new do |gem|
   gem.authors = ["Kristian Mandrup"]
 
   gem.add_dependency "require_all",       "~> 1.2.0"
-  gem.add_dependency "sugar-high",        "~> 0.4.1"
+  gem.add_dependency "sugar-high",        "~> 0.4.0"
   gem.add_dependency "activesupport",     ">= 3.0.7"
 
   # Include your dependencies below. Runtime dependencies are required when using your gem,
