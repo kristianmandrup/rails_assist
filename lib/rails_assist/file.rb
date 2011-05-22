@@ -4,7 +4,7 @@ require_all File.dirname(__FILE__) + '/file'
 module RailsAssist
   module File
     module Methods
-      {:initializer => 'rb', :db => 'rb', :migration => 'rb', :locale => 'yml', :javascript => 'js', :stylesheet => 'css', :config => '.rb', :db => '.rb'}.each_pair do |name, ext|
+      {:initializer => 'rb', :db => 'rb', :migration => 'rb', :locale => 'yml', :javascript => 'js', :coffeescript => 'coffee', :stylesheet => 'css', :config => '.rb', :db => '.rb'}.each_pair do |name, ext|
         plural_name = name.to_s.pluralize
         pure_ext = ext.gsub /^\./, ''
         class_eval %{      

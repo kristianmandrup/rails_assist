@@ -61,5 +61,4 @@ describe RailsAssist::Artifact::Directory do
       end
     } 
   end
-
 end

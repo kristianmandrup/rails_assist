@@ -82,7 +82,7 @@ module RailsAssist
         }
       end
 
-      {:locale => :yml, :javascript => :js}.each_pair do |name, ext|
+      {:locale => :yml, :javascript => :js, :coffeescript => :coffee}.each_pair do |name, ext|
         class_eval %{
           def #{name}_filepaths expr=nil
             filepaths = rails_app_files(:#{name}, :pattern => '**/*.#{ext}', :expr => expr)

@@ -38,6 +38,9 @@ require 'rails_assist/directory'
 require 'rails_assist/file'
 require 'rails_assist/files'
 require 'rails_assist/artifact'
-require 'rails_assist/macro'
+require 'rails_assist/macro' 
+
+require 'raila_assist/layouts/rails_31' if Rails.version > "3.1"
+
 
 

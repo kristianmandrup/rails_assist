@@ -50,9 +50,34 @@ module RailsAssist
         DIR.send(dir_method, options) if DIR.respond_to?(dir_method)
       end
 
+      # TODO: use meta prog. to make DRY
+      
+      # Root and asset dirs
+      def lib_dir_for type, options={}
+        ::File.join(lib_dirpath(options), type.to_s.pluralize)
+      end
+
+      def lib_asset_dir_for type, options={}
+        ::File.join(lib_dir_for('assets', options), type.to_s.pluralize)        
+      end
+
+      def vendor_dir_for type, options={}
+        ::File.join(vendor_dirpath(options), type.to_s.pluralize)
+      end
+
+      def vendor_asset_dir_for type, options={}
+        ::File.join(vendor_dir_for('assets', options), type.to_s.pluralize)        
+      end
+
       def app_dir_for type, options={}
         ::File.join(app_dirpath(options), type.to_s.pluralize)
       end      
+
+      def app_asset_dir_for type, options={}
+        ::File.join(app_dir_for('assets', options), type.to_s.pluralize)
+      end
+
+      # more ...
 
       def config_dir_for type, options={}
         ::File.join(config_dirpath(options), type.to_s.pluralize)

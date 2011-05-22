@@ -76,4 +76,10 @@ describe RailsAssist::Artifact::Files do
       @test.erb_view_files(:user).file_names.should include 'show.html.erb'
     end
   end 
+
+  describe '#haml_view_files' do 
+    it "should return haml :view files" do
+      @test.haml_view_files(:user).file_names.should include 'show.html.erb'
+    end
+  end   
 end

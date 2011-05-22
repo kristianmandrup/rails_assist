@@ -2,7 +2,7 @@ module RailsAssist::Directory
   module Root
     module Methods
       def root_directories
-        [:app, :config, :db, :public, :lib, :log, :doc, :test, :spec]      
+        [:app, :config, :db, :public, :lib, :log, :doc, :test, :spec, :vendor]      
       end
 
       def root_dirpath options={}

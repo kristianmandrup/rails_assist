@@ -62,7 +62,6 @@ describe RailsAssist::File do
     end
   end
 
-
   describe '#replace_initializer_content' do
     it "should create replace initializer content using hash args" do      
       name = 'my_init'   
