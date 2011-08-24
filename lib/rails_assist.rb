@@ -9,6 +9,10 @@ require 'sugar-high/file'
 require 'sugar-high/regexp'
 require 'sugar-high/array'
 
+require 'file_mutate'
+
+File.file_mutate :all
+
 require 'rails_assist/namespaces'
 
 module RailsAssist

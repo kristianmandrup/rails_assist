@@ -5,13 +5,13 @@ require 'sugar-high/regexp'
 require_all File.dirname(__FILE__) + '/file'
 
 module RailsAssist
-  module Files         
+  module Files
     # we depend on the Directories module doing some of the hard work!
     module Methods
       RYBY_FILES = '**/*.rb'
-      
+
       def rails_app_filepaths type = :app, options = {}
-        type = (type =~ /ss/) ? type : type.to_s.singularize        
+        type = (type =~ /ss/) ? type : type.to_s.singularize
         dir = RailsAssist::Directory.send "#{type}_dirpath"
         expr = options[:expr]
         file_pattern = options[:pattern] || RYBY_FILES
@@ -22,35 +22,35 @@ module RailsAssist
       def rails_app_files type = :app, options = {}
         rails_app_filepaths(type, options).to_files
       end
-    
+
       def all_filepaths expr=nil
         pattern = "#{RailsAssist::Directory::Root.root_dirpath}/**/*.*"
         FileList[pattern].to_a.grep_it expr 
-      end  
+      end
 
       def all_files expr=nil
         all_filepaths(expr).to_files
-      end  
+      end
 
       def app_filepaths expr=nil
         rails_app_files(:app).grep_it expr
-      end  
+      end
 
       def app_files expr=nil
         app_filepaths(expr).to_files
-      end  
+      end
 
       # files_from :model, :controller, :matching => /user/
       def filepaths_from *types, &block
         expr = last_option(types)[:matching]
         the_files = types.inject([])  do |files, type|
-          method = :"#{type}_files"               
+          method = :"#{type}_files"
           files_found = send(method, expr) if respond_to?(method)
           files_found = RailsAssist::Artifact::Files.send(method, expr) if RailsAssist::Artifact::Files.respond_to?(method)
           files + files_found
         end.compact
         yield the_files if block
-        the_files        
+        the_files
       end
 
       def files_from *types, &block
@@ -113,41 +113,41 @@ module RailsAssist
           end
         }
       end
-      
-      # RailsAssist::Artifact.app_artifacts.each do |name|
-      #   plural_name = name.to_s.pluralize
-      #   class_eval %{
-      #     def #{name}_files? *names
-      #       names.to_strings.each do |name|
-      #         return false if !#{name}_file?(name)
-      #       end
-      #       true
-      #     end          
-      # 
-      #     def #{name}_file? name
-      #       ::File.file? #{name}_file(name)
-      #     end            
-      #     alias_method :has_#{name}_file?, :#{name}_file?
-      #     
-      #     def remove_all_#{plural_name}
-      #       RailsAssist::Artifact::Files.#{name}_files.each{|f| ::File.delete_file! f}
-      #     end
-      #     alias_method :delete_all_#{plural_name}, :remove_all_#{plural_name}           
-      # 
-      #     def remove_#{plural_name} *names
-      #       return remove_all_#{plural_name} if names.empty? 
-      #       names.to_strings.each do |name|
-      #         ::File.delete #{name}_file(name)
-      #       end
-      #     end
-      #     alias_method :delete_#{plural_name}, :remove_#{plural_name} 
-      #     alias_method :remove_#{name}, :remove_#{plural_name} 
-      #     alias_method :delete_#{name}, :remove_#{plural_name}           
-      #   } 
-      # end    
-    end    
-    
+
+      RailsAssist::Artifact.app_artifacts.each do |name|
+        plural_name = name.to_s.pluralize
+        class_eval %{
+          def #{name}_files? *names
+            names.to_strings.each do |name|
+              return false if !#{name}_file?(name)
+            end
+            true
+          end
+
+          def #{name}_file? name
+            ::File.file? #{name}_file(name)
+          end
+          alias_method :has_#{name}_file?, :#{name}_file?
+
+          def remove_all_#{plural_name}
+            RailsAssist::Artifact::Files.#{name}_files.each{|f| ::File.delete_file! f}
+          end
+          alias_method :delete_all_#{plural_name}, :remove_all_#{plural_name}
+
+          def remove_#{plural_name} *names
+            return remove_all_#{plural_name} if names.empty?
+            names.to_strings.each do |name|
+              ::File.delete #{name}_file(name)
+            end
+          end
+          alias_method :delete_#{plural_name}, :remove_#{plural_name}
+          alias_method :remove_#{name}, :remove_#{plural_name}
+          alias_method :delete_#{name}, :remove_#{plural_name}
+        } 
+      end
+    end
+
     include Methods
     extend Methods
-  end # Files    
-end # App                  
+  end # Files
+end # App
