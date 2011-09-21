@@ -68,23 +68,22 @@ describe RailsAssist::Files do
   #     end
   #   end
   # end
-  
+
   describe '#initializer_files' do
-    it "should return files for initializer directory" do    
+    it "should return files for initializer directory" do
       CLASS.initializer_files.file_names.should include('mime_types.rb', 'secret_token.rb')
-    end  
+    end
   end
-  
-  
+
   describe '#locale_files' do
-    it "should return files for locale directory" do    
+    it "should return files for locale directory" do
       CLASS.locale_files.file_names.should include('en.yml')
-    end  
+    end
   end
-  
+
   describe '#css_files' do
-    it "should return files for css directory" do    
+    it "should return files for css directory" do
       CLASS.css_files.file_names.should include('scaffold.css')
-    end  
+    end
   end
-end  
+end

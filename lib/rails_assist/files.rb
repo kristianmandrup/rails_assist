@@ -25,7 +25,7 @@ module RailsAssist
 
       def all_filepaths expr=nil
         pattern = "#{RailsAssist::Directory::Root.root_dirpath}/**/*.*"
-        FileList[pattern].to_a.grep_it expr 
+        FileList[pattern].to_a.grep_it expr
       end
 
       def all_files expr=nil
@@ -82,7 +82,7 @@ module RailsAssist
         }
       end
 
-      {:locale => :yml, :javascript => :js}.each_pair do |name, ext|
+      {:locale => :yml, :javascript => :js, :coffee => :coffee}.each_pair do |name, ext|
         class_eval %{
           def #{name}_filepaths expr=nil
             filepaths = rails_app_files(:#{name}, :pattern => '**/*.#{ext}', :expr => expr)

@@ -1,5 +1,5 @@
 module RailsAssist::Directory
-  module App  
+  module App
     module Methods
       def app_directories
         RailsAssist::Artifact::app_artifacts.map {|a| a.to_s.pluralize.to_sym}
@@ -14,7 +14,7 @@ module RailsAssist::Directory
         app_dirpath(options).dir
       end
     end
-    
+
     include Methods
     extend Methods
   end

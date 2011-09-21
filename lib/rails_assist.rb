@@ -17,7 +17,7 @@ require 'rails_assist/namespaces'
 
 module RailsAssist
   def self.artifacts
-    [:observer, :controller, :helper, :mailer, :model, :migration, :permit]
+    [:observer, :controller, :helper, :mailer, :model, :migration, :permit, :asset]
   end
 
   def self.specials type=nil
@@ -31,7 +31,7 @@ module RailsAssist
       [:initializer, :locale] + [:stylesheet, :javascript]
     end
   end
-  
+
   class << self
     attr_accessor :debug_on
   end

@@ -14,8 +14,8 @@ def test_routes_file &block
 
   File.overwrite CLASS.routes_file do
     old_content
-  end            
-end  
+  end
+end
 
 def test_gem_file &block
   old_content = AppDir.new.read_gem_file
@@ -24,24 +24,24 @@ def test_gem_file &block
 
   File.overwrite CLASS.gem_file do
     old_content
-  end            
-end  
+  end
+end
 
 describe RailsAssist::File::Special do
   before do
-    RailsAssist::Directory.rails_root = fixtures_dir     
+    RailsAssist::Directory.rails_root = fixtures_dir
   end
 
   [:application, :environment, :seed, :routes, :boot].each do |name|
     eval %{
-      before :each do                   
+      before :each do
         file_name = CLASS.#{name}_filepath
         FileUtils.cp file_name, file_name + '.bak'
       end
 
-      after :each do                  
-        file_name = CLASS.#{name}_filepath        
-        FileUtils.mv file_name + '.bak', file_name        
+      after :each do
+        file_name = CLASS.#{name}_filepath
+        FileUtils.mv file_name + '.bak', file_name
       end
 
       describe '##{name}_file' do
@@ -56,7 +56,7 @@ describe RailsAssist::File::Special do
           CLASS.remove_#{name}_file if File.exist?(file_name + '.bak')
           File.exist?(file_name).should be_false 
         end
-      end  
+      end
 
       describe '#read_#{name}_file' do
         it "should read the #{name} file content" do
@@ -76,25 +76,24 @@ describe RailsAssist::File::Special do
       end
     }
   end
-  
+
   describe '#gem_file' do
     it 'should return the Gemfile path' do
       AppDir.new.gem_filepath.should match /Gemfile/
     end
   end
-  
+
   # create test_routes macro
-  
-  describe '#insert_into_routes' do  
+  describe '#insert_into_routes' do
     it 'should insert into block of Routes file, string statement' do
       test_routes_file do
         routes_stmt = 'devise_for :users'
         CLASS.insert_into_routes routes_stmt
         puts AppDir.new.read_routes_file
         AppDir.new.read_routes_file.should match /do\s*#{Regexp.escape(routes_stmt)}\s*/m
-      end            
+      end
     end
-    
+
     # it 'should insert into block of Routes file, block statement' do
     #   test_routes_file do
     #     routes_stmt = 'devise_for :brugere'
@@ -102,7 +101,7 @@ describe RailsAssist::File::Special do
     #       routes_stmt
     #     end
     #     AppDir.new.read_routes_file.should match /do\s*#{Regexp.escape(routes_stmt)}\s*/m
-    #   end            
+    #   end
     # end
     # 
     # it 'should insert into block of Routes file, block statement' do
@@ -112,17 +111,17 @@ describe RailsAssist::File::Special do
     #       routes_stmt
     #     end
     #     AppDir.new.read_routes_file.should match /\s*#{Regexp.escape(routes_stmt)}\s*end\s*$/mi
-    #   end            
+    #   end
     # end
   end
   # 
-  # describe '#read_gem_file' do  
+  # describe '#read_gem_file' do
   #   it 'should read the Gemfile' do
   #     AppDir.new.read_gem_file.should match /gem 'rails'/
   #   end
   # end
   # 
-  # describe '#has_gem?' do    
+  # describe '#has_gem?' do
   #   it 'should be true that it has the rails gem' do
   #     AppDir.new.has_gem?(:rails).should be_true
   #   end
@@ -132,7 +131,7 @@ describe RailsAssist::File::Special do
   #   end
   # end
   # 
-  # describe '#clean_gemfile' do    
+  # describe '#clean_gemfile' do
   #   it 'should be true that it has cleaned the Gemfile ensuring newlines between each gem' do
   #     test_gem_file do
   #       CLASS.append_to_gem_file do
@@ -158,9 +157,9 @@ describe RailsAssist::File::Special do
   #   end
   # end
   # 
-  # describe '#has_gem_version?' do    
+  # describe '#has_gem_version?' do
   #   it 'should be true that it has the rails gem 3.0.3' do
-  #     # puts AppDir.new.read_gem_file      
+  #     # puts AppDir.new.read_gem_file
   #     AppDir.new.has_gem_version?(:rails, '3.0.3').should be_true
   #   end
   # 

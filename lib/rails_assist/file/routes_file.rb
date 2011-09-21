@@ -12,7 +12,7 @@ module RailsAssist::File
       statement = block ? yield : route_stmt
       routes_file.insert statement, :before_last => 'end'
     end
-    
+
     alias_method :insert_as_last_route_statement, :insert_last_in_routes
   end
 end

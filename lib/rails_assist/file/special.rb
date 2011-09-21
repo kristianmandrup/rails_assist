@@ -1,7 +1,7 @@
 require_all File.dirname(__FILE__)
 
 module RailsAssist::File
-  module Special          
+  module Special
     module Methods
       # application_file, environment_file
       [:application, :environment, :routes, :boot].each do |name|
@@ -14,7 +14,7 @@ module RailsAssist::File
             #{name}_filepath.file
           end
         }
-      end  
+      end
 
       def database_filepath
         [RailsAssist::Directory.config_dir.path, 'database.yml'].file_join
@@ -33,11 +33,11 @@ module RailsAssist::File
         raise "No Seed file found at #{seed_filepath}" if !File.exist? seed_filepath
         seed_filepath.new_file
       end
-          
+
       # read_application_file
       # append_to_application_file
       [:application, :environment, :seed, :gem, :routes, :boot, :database].each do |name|
-        class_eval %{      
+        class_eval %{
           def read_#{name}_file
             #{name}_file.read_content
           end
@@ -60,19 +60,19 @@ module RailsAssist::File
         }
       end
     end
-    
+
     include Methods
     extend Methods
-    
+
     include RailsAssist::File::Application
     include RailsAssist::File::Environment
     include RailsAssist::File::Gemfile
-    include RailsAssist::File::Routes    
+    include RailsAssist::File::Routes
 
     extend RailsAssist::File::Application
     extend RailsAssist::File::Environment
     extend RailsAssist::File::Gemfile
-    extend RailsAssist::File::Routes    
+    extend RailsAssist::File::Routes
 
   end
 end

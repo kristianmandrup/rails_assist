@@ -9,8 +9,8 @@ end
 describe RailsAssist::Artifact::Directory do
   # use_helper :directories
 
-  before do  
-    RailsAssist::Directory.rails_root = fixtures_dir    
+  before do
+    RailsAssist::Directory.rails_root = fixtures_dir
     @test = ArtDir.new
   end
 
@@ -23,7 +23,7 @@ describe RailsAssist::Artifact::Directory do
           @test.#{name}_dir.path.should match /app\/\#{name}/
         end
       end
-    } 
+    }
   end
 
   describe '#observer_dir' do
@@ -32,14 +32,14 @@ describe RailsAssist::Artifact::Directory do
       @test.observer_dirpath.should match /app\/models/
     end
   end
-  
+
   describe '#migration_dir' do
     it "should return migration directory name" do
       CLASS.migration_dir.path.should match /db\/migrate/
       @test.migration_dirpath.should match /db\/migrate/
     end
-  end    
-    
+  end
+
   [:initializer, :locale].each do |name|
     eval %{
       describe '##{name}_dir' do
@@ -48,9 +48,9 @@ describe RailsAssist::Artifact::Directory do
           @test.#{name}_dirpath.should match /config\/\#{name}/
         end
       end
-    } 
+    }
   end
-  
+
   [:stylesheet, :javascript].each do |name|
     eval %{
       describe '##{name}_dir' do
@@ -59,7 +59,6 @@ describe RailsAssist::Artifact::Directory do
           @test.#{name}_dirpath.should match /public\/\#{name}/
         end
       end
-    } 
+    }
   end
-
 end

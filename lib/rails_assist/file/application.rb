@@ -6,7 +6,7 @@ module RailsAssist::File
       def insert_application_config statement=nil, &block
         statement = block ? yield : "config.#{statement}"
         application_file.insert statement, :after => 'Rails::Application'
-      end  
+      end
     end
     include Methods
     extend Methods

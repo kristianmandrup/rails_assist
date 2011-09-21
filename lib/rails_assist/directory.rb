@@ -2,14 +2,14 @@ require_all File.dirname(__FILE__) + '/directory'
 require 'rails_assist/artifact'
 
 module RailsAssist
-  module Directory      
+  module Directory
     class << self
       attr_accessor :rails_root
-      
+
       def method_missing(sym, *args, &block)
         RailsAssist::Artifact::Directory.send sym
       end
-    end    
+    end
 
     include Root
     extend Root
@@ -17,15 +17,15 @@ module RailsAssist
     include App
     extend App
 
-    include Container    
+    include Container
     extend Container
-        
+
     # dir_for helpers
     # -------------------
 
-    module Methods   
-      DIR = RailsAssist::Artifact::Directory      
-      
+    module Methods
+      DIR = RailsAssist::Artifact::Directory
+
       # :app, :config, :db, :public, :lib, :log, :doc, :test, :spec
       #
       # app_dir, config_dir ...
@@ -36,13 +36,13 @@ module RailsAssist
             raise "Rails Root dir not defined" if _root_dir.nil?
             ::File.join(_root_dir, '#{name}')
           end
-          
+
           def #{name}_dir options={}
             #{name}_dirpath(options).dir
           end
-        } 
-      end      
-      
+        }
+      end
+
       def rails_dir_for type, options={}
         raise ArgumentError, '#rails_dir_for takes a dir type argument' if !type
         dir_method = "#{type}_dir"
@@ -52,19 +52,19 @@ module RailsAssist
 
       def app_dir_for type, options={}
         ::File.join(app_dirpath(options), type.to_s.pluralize)
-      end      
+      end
 
       def config_dir_for type, options={}
         ::File.join(config_dirpath(options), type.to_s.pluralize)
-      end      
+      end
 
       def public_dir_for type, options={}
         ::File.join(public_dirpath(options), type.to_s.pluralize)
-      end                
+      end
     end
-    
+
     include Methods
     extend Methods
-    
-  end # Directories   
+
+  end # Directories
 end

@@ -19,9 +19,9 @@ module RailsAssist
         end
       end
     end
-  
-    def assist_with *types      
-      types.each{|type| use_helper type}      
+
+    def assist_with *types
+      types.each{|type| use_helper type}
     end
     alias_method :load_helpers, :assist_with
     alias_method :use_helpers,  :assist_with
@@ -33,7 +33,7 @@ module RailsAssist
           include module_name.constantize
           if [:files, :directory].include? type
             module_name = "RailsAssist::Artifact::#{type.to_s.camelize}"
-            include module_name.constantize          
+            include module_name.constantize
           end
         rescue
           raise ArgumentError, "Unregistered RailsAssist library: #{type}, #{module_name}"
@@ -51,18 +51,18 @@ module RailsAssist
         end
       end
     end
-  
+
     def use_helper type
       if type == :special
         class_eval do
           include "RailsAssist::File::Special".constantize
-        end        
+        end
         return
       end
 
-      return rails_assist(type) if [:file, :files, :directory, :app].include?(type)        
+      return rails_assist(type) if [:file, :files, :directory, :app].include?(type)
       artifact_assist(type)
-    end 
+    end
     alias_method :load_helper, :use_helper
-  end                         
+  end
 end

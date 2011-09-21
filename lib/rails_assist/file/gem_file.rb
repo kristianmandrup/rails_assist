@@ -16,7 +16,7 @@ module RailsAssist::File
     def gem_filepath
       [RailsAssist::Directory::Root.root_dirpath, 'Gemfile'].file_join
     end
-    
+
     def gem_file
       raise "No Gemfile found at #{gem_filepath}" if !File.exist? gem_filepath
       gem_filepath.new_file
