@@ -23,7 +23,7 @@ module RailsAssist
   def self.specials type=nil
     case type
     when :config
-      [:initializer, :locale]
+      [:initializer, :locale, :config]
     when :public
       [:stylesheet, :javascript]
     else

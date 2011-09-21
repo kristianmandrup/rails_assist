@@ -16,6 +16,7 @@ describe RailsAssist::File do
 
   before :each do
     CLASS.remove_initializer('my_init')
+    CLASS.remove_config_file('my_config')
   end
 
   describe '#initializer_filepath' do
@@ -53,12 +54,20 @@ describe RailsAssist::File do
   end
 
   describe '#read_initializer_file' do
-    it "should create replace initializer content using hash args" do
+    it "should create and read initializer file content" do
       name = 'my_init'
       CLASS.create_initializer(name) do
         'hello'
       end
       CLASS.read_initializer_file(name).should match /hello/
+    end
+
+    it "should create and read config file content" do
+      name = 'my_config'
+      CLASS.create_config(name) do
+        'hello'
+      end
+      CLASS.read_config_file(name).should match /hello/
     end
   end
 

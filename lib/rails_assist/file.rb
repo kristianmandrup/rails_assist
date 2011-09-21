@@ -3,7 +3,7 @@ require_all File.dirname(__FILE__) + '/file'
 module RailsAssist
   module File
     module Methods
-      {:initializer => 'rb', :db => 'rb', :migration => 'rb', :locale => 'yml', :coffee => 'coffee', :javascript => 'js', :stylesheet => 'css', :config => '.rb', :db => '.rb'}.each_pair do |name, ext|
+      {:config => 'yml', :initializer => 'rb', :db => 'rb', :migration => 'rb', :locale => 'yml', :coffee => 'coffee', :javascript => 'js', :stylesheet => 'css', :config => '.rb', :db => '.rb'}.each_pair do |name, ext|
         plural_name = name.to_s.pluralize
         pure_ext = ext.gsub /^\./, ''
         class_eval %{
@@ -24,7 +24,7 @@ module RailsAssist
           def #{name}_filepath name
             name = name.as_filename
             name = (name =~ /.rb$/) ? name : "\#{name}.#{pure_ext}"
-            [RailsAssist::Artifact::Directory.#{name}_dirpath, name].file_join
+            [RailsAssist::Directory.#{name}_dirpath, name].file_join
           end
 
           def #{name}_file name
@@ -36,12 +36,14 @@ module RailsAssist
             name = name.as_filename
 
             # create dir for artifact if it doesn't exist
-            RailsAssist::App.create_empty_tmp :#{name} if !RailsAssist::Artifact::Directory.#{name}_dir
+            path = RailsAssist::Directory.#{name}_dirpath
+            RailsAssist::App.create_empty_tmp(:#{name}) if !::File.directory?(path)
 
             #{name}_file(name).overwrite do
               yield
             end
           end
+          alias_method :create_#{name}_file, :create_#{name}
 
           def read_#{name} name
             name = name.as_filename
@@ -64,7 +66,8 @@ module RailsAssist
           end
 
           def remove_all_#{plural_name}
-            return if !(RailsAssist::Artifact::Directory.#{name}_dir.path.directory?) # bug?
+            path = RailsAssist::Directory.#{name}_dirpath
+            return if !::File.directory?(path)
             #{name}_files.delete_all!
           end
 
@@ -76,6 +79,8 @@ module RailsAssist
             end
           end
           alias_method :remove_#{name}, :remove_#{plural_name}
+          alias_method :remove_#{name}_file, :remove_#{name}
+          alias_method :remove_#{plural_name}_files, :remove_#{name}
         }
       end
     end

@@ -19,7 +19,7 @@ module RailsAssist::Artifact
         }
       end
 
-      [:initializer, :locale].each do |name|
+      [:initializer, :locale, :config].each do |name|
         class_eval %{
           def #{name}_filepaths expr=nil
             files = RailsAssist::Files.rails_app_files(:#{name.to_s.pluralize}).grep_it expr

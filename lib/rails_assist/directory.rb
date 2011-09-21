@@ -45,7 +45,7 @@ module RailsAssist
 
       def rails_dir_for type, options={}
         raise ArgumentError, '#rails_dir_for takes a dir type argument' if !type
-        dir_method = "#{type}_dir"
+        dir_method = "#{type}_dirpath"
         return send(dir_method, options) if respond_to?(dir_method)
         DIR.send(dir_method, options) if DIR.respond_to?(dir_method)
       end
