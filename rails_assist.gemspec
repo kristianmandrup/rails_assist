@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{rails_assist}
-  s.version = "0.5.2"
+  s.name = "rails_assist"
+  s.version = "0.5.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Kristian Mandrup}]
-  s.date = %q{2011-08-24}
-  s.description = %q{Basic file operation helpers for working with Rails 3 artifacts}
-  s.email = %q{kmandrup@gmail.com}
+  s.authors = ["Kristian Mandrup"]
+  s.date = "2011-09-21"
+  s.description = "Basic file operation helpers for working with Rails 3 artifacts"
+  s.email = "kmandrup@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.markdown"
@@ -132,10 +132,10 @@ Gem::Specification.new do |s|
     "spec/rails_assist_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/kristianmandrup/rails-assist}
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.8}
-  s.summary = %q{File operation helpers for Rails 3 artifacts}
+  s.homepage = "http://github.com/kristianmandrup/rails-assist"
+  s.require_paths = ["lib"]
+  s.rubygems_version = "1.8.10"
+  s.summary = "File operation helpers for Rails 3 artifacts"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
