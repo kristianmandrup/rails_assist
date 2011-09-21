@@ -47,9 +47,9 @@ module RailsAssist::Artifact
       end
 
       def view_filepaths *args
-        expr, model_name = Helper.get_view_args args
+        expr, name = Helper.get_view_args args
         ext = last_option(args)[:template_language] || 'erb'
-        pattern = model_name ? "#{model_name.to_s.pluralize}/*.#{ext}*" : "**/*.#{ext}*"
+        pattern = name ? "#{name.to_s.pluralize}/*.#{ext}*" : "**/*.#{ext}*"
         files = RailsAssist::Files.rails_app_files(:views, :pattern => pattern).grep_it expr
         yield files if block_given?
         files
@@ -61,14 +61,40 @@ module RailsAssist::Artifact
         files
       end
 
+      def asset_filepaths *args
+        expr, name = Helper.get_asset_args args
+        ext = last_option(args)[:ext]
+        pattern = name ? "#{name.to_s.pluralize}/*.#{ext}*" : "**/*.#{ext}*"
+        files = RailsAssist::Files.rails_app_files(:assets, :pattern => pattern).grep_it expr
+        yield files if block_given?
+        files
+      end
+
+      def asset_files *args
+        files = asset_filepaths(args).to_files
+        yield files if block_given?
+        files
+      end
+
+      [:js, :css, :scss, :sass].each do |name|
+        class_eval %{
+          def #{name}_asset_filepaths *args
+            asset_files args, :ext => :#{name}
+          end
+
+          def #{name}_asset_files *args
+            asset_filepaths(args).to_files
+          end
+        }
+      end
 
       [:erb, :haml, :slim].each do |name|
         class_eval %{
-          def #{name}_view_filepaths *args 
+          def #{name}_view_filepaths *args
             view_files args, :template_language => :#{name}
           end
 
-          def #{name}_view_files *args 
+          def #{name}_view_files *args
             view_filepaths(args).to_files
           end
         }
@@ -78,17 +104,20 @@ module RailsAssist::Artifact
     include Methods
 
     module Helper
-      def self.get_view_args args
-        args = args.flatten
-        first_arg = args.first
-        case first_arg
-        when Regexp
-          expr = first_arg
-        when String, Symbol
-          _model = first_arg
+      class << self
+        def get_view_args args
+          args = args.flatten
+          first_arg = args.first
+          case first_arg
+          when Regexp
+            expr = first_arg
+          when String, Symbol
+            _model = first_arg
+          end
+          expr = args[1] if args.size > 1 && args[1].kind_of?(Regexp)
+          [expr, _model]
         end
-        expr = args[1] if args.size > 1 && args[1].kind_of?(Regexp)
-        [expr, _model]
+        alias_method :get_asset_args, :get_view_args
       end
     end
   end

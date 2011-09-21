@@ -1,11 +1,11 @@
 module RailsAssist::Artifact
   module Methods
     def helper_list
-      RailsAssist.artifacts + [:view]
+      RailsAssist.artifacts + [:view, :asset]
     end
 
     def app_artifacts
-      [:controller, :mailer, :helper, :view, :model, :permit, :license, :validator]
+      [:controller, :mailer, :helper, :view, :model, :permit, :license, :validator, :asset]
     end
 
     def rails_artifacts

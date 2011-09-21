@@ -44,8 +44,14 @@ module RailsAssist::Artifact
         }
       end
 
-      def asset_dirpath options={}
-        [DIR.app_dirpath(options), 'asset'].file_join
+      {:javascripts => [:js, :coffee], :stylesheets => [:scss, :sass]}.each_pair do |folder, exts|
+        exts.each do |ext|
+          class_eval %{
+            def #{ext}_asset_dirpaths options={}
+              [asset_dirpath, '#{folder}'].file_join
+            end
+          }
+        end
       end
 
       def migration_dirpath options={}
